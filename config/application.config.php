@@ -3,6 +3,7 @@ return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'Application',
+        'Album',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
@@ -11,6 +12,7 @@ return array(
         // If a string key is provided, the listener will consider that a module
         // namespace, the value of that key the specific path to that module's
         // Module class.
+        //模块所在的文件夹
         'module_paths' => array(
             './module',
             './vendor',
