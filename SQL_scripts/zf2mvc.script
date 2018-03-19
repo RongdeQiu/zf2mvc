@@ -1,0 +1,18 @@
+CREATE TABLE album(
+  id int(11) NOT NULL auto_increment,
+  artist varchar(100) NOT NULL,
+  title varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO album (artist,title)
+  VALUE ('The Military Wives', 'In My Dreams');
+INSERT INTO album (artist,title)
+  VALUE ('Adele', '21');
+INSERT INTO album (artist,title)
+  VALUE ('Bruce Springsteen', 'Wrecking Ball (Deluxe)');
+INSERT INTO album (artist,title)
+  VALUE ('Lana Del Rey', 'Born To Die');
+INSERT INTO album (artist,title)
+  VALUE ('Gotye', 'Making Mirrors');
+

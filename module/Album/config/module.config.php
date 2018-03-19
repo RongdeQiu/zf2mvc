@@ -20,7 +20,7 @@ return array(
                     'route'    => '/album',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Album\Controller',
-                        'controller'    => 'Album',
+                        'controller'    => 'album',
                         'action'        => 'index',
                     ),
                 ),

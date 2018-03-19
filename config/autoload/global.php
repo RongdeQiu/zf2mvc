@@ -12,5 +12,22 @@
  */
 
 return array(
-    // ...
+    //Module.php\getServiceConfig()\AlbumTableGateway调用
+    'service_manager'=>array(
+        'factories'=>array(
+            'Zend\Db\Adapter\Adapter'=>'Zend\Db\Adapter\AdapterServiceFactory'
+        )
+    ),
+
+    //Zend\Db\Adapter\AdapterServiceFactory内的createServie()调用
+    'db'=>array(
+        'driver'=>'Pdo',
+        'dsn'=>'mysql:dbname=zf2mvc;host=localhost',
+        'username'=>'root',
+        'password'=>'12344321',
+        'driver_options'=>array(
+            PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'UTF8\''
+        ),
+    ),
+
 );

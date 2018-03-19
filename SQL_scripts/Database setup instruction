@@ -1,0 +1,11 @@
+1) Create Database in mysql
+2) Create Model under the module folder (namespace module_name\Model).
+3) Create the database model class under that model folder. This model class
+   should has the same public variable as the database table
+4) Create the database table access class under the model folder.
+   This table access class should has functions to add, edit, access, and delete data to
+   the database table
+5) Modify global.php to configure db adapter and mysql database information for service
+   factory
+6) Access data (table in iterator) in controller or view model
+
