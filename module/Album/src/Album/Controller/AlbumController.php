@@ -17,14 +17,16 @@ class AlbumController extends AbstractActionController
     public function indexAction()
     {
         $albumTable = $this->getServiceLocator()->get('Album\Model\AlbumTable');
-        $album = $albumTable->fetchAll();
-        \Zend\Debug\Debug::dump(iterator_to_array($album));
-        exit();
-
-
-//        echo "<p>Album controller --> index view</p>";
-//        exit();
-//        return new ViewModel();
+        $albumSet = $albumTable->fetchAll();
+        // \Zend\Debug\Debug::dump(iterator_to_array($album));
+        // exit();
+        $viewModel = new ViewModel();
+        $viewModel->setVariables(
+            array(
+                'albumSet' => $albumSet
+            )
+        );
+        return $viewModel;
     }
 
     public function addAction()

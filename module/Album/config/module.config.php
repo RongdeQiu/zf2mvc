@@ -43,12 +43,17 @@ return array(
         ),
     ),
 
-
     'controllers' => array(
         'invokables' => array(
             'Album\Controller\Album' => 'Album\Controller\AlbumController'
         ),
     ),
 
-
+    //定义view层所在的路径，以找到相应的文件
+    'view_manager' => array(
+        'doctype'    => 'HTML5',
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
+        ),
+    ),
 );
