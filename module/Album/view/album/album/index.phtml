@@ -1,5 +1,5 @@
 <p>
-    <a href="<?php echo $this->url('album', array('action' => 'add')); ?>">Add new album</a>
+    <a href="<?php echo $this->url('album', array('controller' => 'album', 'action' => 'add')); ?>"> Add new album</a>
 </p>
 
 <table class="table">
@@ -14,9 +14,9 @@
             <td><?php echo $this->escapeHtml($album->artist); ?></td>
             <td>
                 <a href="<?php echo $this->url('album',
-                    array('action' => 'edit', 'id' => $album->id)); ?>"> Edit</a>
+                    array('controller' => 'album', 'action' => 'edit', 'id' => $album->id)); ?>"> Edit</a>
                 <a href="<?php echo $this->url('album',
-                    array('action' => 'delete', 'id' => $album->id)); ?>">Delete</a>
+                    array('controller' => 'album', 'action' => 'delete', 'id' => $album->id)); ?>">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -14,6 +14,7 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
+            /*
             'album' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -37,6 +38,24 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                    ),
+                ),
+            ),
+            */
+
+            'album' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/album[/:controller[/:action[/:id]]]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    //    'id'        =>'[0-9]*',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Album\Controller',
+                        'controller'    => 'album',
+                        'action'        => 'index',
                     ),
                 ),
             ),
