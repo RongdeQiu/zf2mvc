@@ -33,8 +33,15 @@ class AlbumTable
 
     }
 
-    public function saveAlbum()
+    public function saveAlbum(Album $album)
     {
+        $id = (int)$album->id;
+        if (!$id) {
+            return $this->tableGateway->insert($album->getArrayCopy()) ? $this->tableGateway->getLastInsertValue() : false;
+        } else {
+            return $this->tableGateway->update($album->getArrayCopy(), 'id' == $id);
+        }
+
 
     }
 
