@@ -28,27 +28,26 @@ class AlbumTable
         return $this->tableGateway->select();
     }
 
-    public function getAlbum()
+    public function getAlbum($id)
     {
-
+        return $this->tableGateway->select(array('id' => $id))->current();
     }
 
     public function saveAlbum(Album $album)
     {
         $id = (int)$album->id;
         if (!$id) {
-            return $this->tableGateway->insert($album->getArrayCopy()) ? $this->tableGateway->getLastInsertValue() : false;
+            return $this->tableGateway->insert($album->getArrayCopy())
+                ? $this->tableGateway->getLastInsertValue() : false;
         } else {
-            return $this->tableGateway->update($album->getArrayCopy(), 'id' == $id);
+            return $this->tableGateway->update($album->getArrayCopy(), array('id' => $id))
+                ? $this->tableGateway->getLastInsertValue() : false;
         }
-
-
     }
 
-    public function deleteAlbum()
+    public function deleteAlbum($id)
     {
-
+        return $this->tableGateway->delete(array('id' => $id));
     }
-
 
 }
