@@ -46,11 +46,17 @@ return array(
             'album' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/album[/:controller[/:action[/:id]]]',
+                    //[]optional
+                    //:define type
+                    // 有许多的路由设置方法， Segment只是比较常用的一种方法
+                    //其他还有很多， 比如Literal, Regex, Scheme, Method, Hostname
+                    //Chain,Wildcard等待，具体参考
+                    // Zend/Mvc/Router/Http/
+                    'route'    => '/album[/[:controller[/[:action[/[:id]]]]]]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    //    'id'        =>'[0-9]*',
+                        'id'        =>'[0-9]+',
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Album\Controller',
