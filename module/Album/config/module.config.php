@@ -60,6 +60,26 @@ return array(
                     ),
                     'defaults' => array(
                         '__NAMESPACE__' => 'Album\Controller',
+                        // 在Zend/Mvc/ModuleRouteListener.php中
+                        // 为了简化路由，定义了__NAMESPACE__参数等，这样
+                        // 'controller'=>'album'中的album服务名会被ModuleRouteListener
+                        // 自动翻译成：Album\Controller\album，
+                        // 这个服务名正好对应下面controllers里面的‘invokables'里面定义的
+                        // 服务
+                        // 注意服务名不区分大小写
+                        // ModuleRouteListener的调用是在缺省的Application完成了，
+                        // 如果要删除Application模块， 一定要把Module.php里面的以下代码
+                        // 拷贝到Album\Module.php里面
+                        /*
+                         *     public function onBootstrap(MvcEvent $e)
+                         * {
+                         *     $eventManager        = $e->getApplication()->getEventManager();
+                         *     $moduleRouteListener = new ModuleRouteListener();
+                         *     $moduleRouteListener->attach($eventManager);
+                         * }
+                         *
+                         *
+                         */
                         'controller'    => 'album',
                         'action'        => 'index',
                     ),
