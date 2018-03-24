@@ -31,7 +31,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
-
     }
 
     //自动加载的psr-0规范
@@ -82,7 +81,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Se
                     //ResultSet()就是定义result的数据原型，也就是讲result保存在
                     //new Album()数据类型的array里面
                     //会用到Album类里面的exchangeArray()函数
-                    $resultSetPrototype=new ResultSet();
+                    $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->getArrayObjectPrototype(new Album());
 
                     //返回TableGateway数据类型
