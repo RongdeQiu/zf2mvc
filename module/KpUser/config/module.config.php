@@ -53,4 +53,21 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+
+    // New style after php 5.4, use [] to replace array()
+    // 使用UserModuleOption功能,可以在controller里面判断是否禁止了注册和登录
+    // Zend\Stdlib\AbstractOptions
+    'kp_user'=>[
+        'disabled_register'=>false,
+        'disabled_login'=>true
+    ],
+
+    // 也可以定义在Module.php中
+    /*
+    'service_manager'=>[
+        'factories'=>[
+            'UserModuleOptions'=>'KpUser\Service\Factory\UserModuleOptions'
+        ]
+    ]
+    */
 );

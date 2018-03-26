@@ -11,10 +11,12 @@ namespace KpUser;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
 class Module implements ConfigProviderInterface,
     AutoloaderProviderInterface,
-    DependencyIndicatorInterface
+    DependencyIndicatorInterface,
+    ServiceProviderInterface
 {
     public function getConfig()
     {
@@ -36,6 +38,14 @@ class Module implements ConfigProviderInterface,
     {
         return [
             'KpBase',
+        ];
+    }
+
+    public function getServiceConfig()
+    {
+        return ['factories' => [
+            'UserModuleOptions' => 'KpUser\Service\Factory\UserModuleOptions'
+            ]
         ];
     }
 }
