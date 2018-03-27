@@ -36,8 +36,5 @@ class UserModuleOptions implements
             $userModuleOptions = $serviceLocator->getServiceLocator()->get('UserModuleOptions');
             $instance->setUserModuleOptions($userModuleOptions);
         }
-
     }
-
-
 }

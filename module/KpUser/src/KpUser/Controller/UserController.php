@@ -10,22 +10,14 @@ namespace KpUser\Controller;
 
 use KpUser\Options\UserModuleOptions;
 use KpUser\Options\UserModuleOptionsAwareInterface;
+use KpUser\Options\UserModuleOptionsTrait;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class UserController extends AbstractActionController
     implements UserModuleOptionsAwareInterface
 {
-    protected $userModuleOptions;
-
-    public function setUserModuleOptions(UserModuleOptions $userModuleOptions)
-    {
-        $this->userModuleOptions = $userModuleOptions;
-    }
-
-    public function getUserModuleOptions()
-    {
-        return $this->userModuleOptions;
-    }
+    //使用Trait来简化代码
+    use UserModuleOptionsTrait;
 
     public function registerAction()
     {
@@ -50,8 +42,7 @@ class UserController extends AbstractActionController
             echo "Login enabled. Dependency Injection Successful.<br>";
         }
 
-        echo "User - Register index view.";
+        echo "User - Register index view. <hr>";
         exit();
     }
-
 }
