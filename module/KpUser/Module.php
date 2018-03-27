@@ -10,13 +10,15 @@ namespace KpUser;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
 class Module implements ConfigProviderInterface,
     AutoloaderProviderInterface,
     DependencyIndicatorInterface,
-    ServiceProviderInterface
+    ServiceProviderInterface,
+    ControllerProviderInterface
 {
     public function getConfig()
     {
@@ -43,8 +45,30 @@ class Module implements ConfigProviderInterface,
 
     public function getServiceConfig()
     {
-        return ['factories' => [
-            'UserModuleOptions' => 'KpUser\Service\Factory\UserModuleOptions'
+        return [
+            'factories' => [
+                'UserModuleOptions' => 'KpUser\Service\Factory\UserModuleOptions'
+            ]
+        ];
+    }
+
+    // Zend\Mvc\Controller\ControllerManager.php
+    // Controller是通过ControllerManager创建出来的
+    public function getControllerConfig()
+    {
+        return [
+            'invokables' => [
+                'KpUser\Controller\User' => 'KpUser\Controller\UserController',
+                'KpUser\Controller\UserCenter' => 'KpUser\Controller\UserCenterController'
+            ],
+            // 首先 Controller Manager会根据上面的invokables注册的服务名 'KpUser\Controller\User'
+            // 去生成UserController实例(instance)
+            // 然后Controller Manager会将生成的instance作为参数,传递给下面的'initializers'注册
+            // 的服务, 也就是'KpUser\Service\Initializer\UserModuleOptions.php', 可以通过debug看到
+            // 在'KpUser\Service\Initializer\UserModuleOptions.php'内,可以根据传入的instance
+            // 是否实现了UserModuleOptionsAwareInterface接口来实现 依赖注入 (自动注入)
+            'initializers'=>[
+                'KpUser\Service\Initializer\UserModuleOptions'
             ]
         ];
     }

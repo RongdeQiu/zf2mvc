@@ -41,12 +41,15 @@ return array(
         ),
     ),
 
+    //Move to Module.php
+    /*
     'controllers' => array(
         'invokables' => array(
             'KpUser\Controller\User' => 'KpUser\Controller\UserController',
             'KpUser\Controller\UserCenter' => 'KpUser\Controller\UserCenterController'
         ),
     ),
+    */
 
     'view_manager' => array(
         'template_path_stack' => array(
@@ -58,8 +61,8 @@ return array(
     // 使用UserModuleOption功能,可以在controller里面判断是否禁止了注册和登录
     // Zend\Stdlib\AbstractOptions
     'kp_user'=>[
-        'disabled_register'=>false,
-        'disabled_login'=>true
+        'disabled_register'=>true,
+        'disabled_login'=>false
     ],
 
     // 也可以定义在Module.php中
