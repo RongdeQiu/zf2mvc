@@ -25,11 +25,17 @@ ControllerProviderInterface,AutoloaderProviderInterface {
     //一样, 最后会合并到一块.
     public function getControllerConfig()
     {
-        return array(
-            'invokables' => array(
+        return [
+            'invokables' =>[
                 'KpBase\Controller\Index' => 'KpBase\Controller\IndexController',
-            ),
-        );
+            ],
+
+            // 当invokables里面没有定义相关的controller服务时, 会去执行下面'abstract_factories'
+            // 指定的操作
+            'abstract_factories'=>[
+                'KpBase\Service\AbstractFactory\Controller'
+            ]
+        ];
     }
 
     public function getAutoloaderConfig()

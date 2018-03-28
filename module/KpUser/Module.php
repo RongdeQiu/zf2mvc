@@ -58,7 +58,9 @@ class Module implements ConfigProviderInterface,
     {
         return [
             'invokables' => [
-                'KpUser\Controller\User' => 'KpUser\Controller\UserController',
+                //'KpUser\Controller\User' => 'KpUser\Controller\UserController',
+                // 'KpUser\Controller\User' 服务,取消后,会去执行'abstract_factories'指定的操作
+                // 'abstract_factories'在KpBase Module中指定了,但是这里也会找到
                 'KpUser\Controller\UserCenter' => 'KpUser\Controller\UserCenterController'
             ],
             // 首先 Controller Manager会根据上面的invokables注册的服务名 'KpUser\Controller\User'
