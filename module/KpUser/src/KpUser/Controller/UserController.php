@@ -8,6 +8,9 @@
 
 namespace KpUser\Controller;
 
+use KpUser\Form\UserBase;
+use KpUser\Form\UserLogin;
+use KpUser\Form\UserRegister;
 use KpUser\Options\UserModuleOptions;
 use KpUser\Options\UserModuleOptionsAwareInterface;
 use KpUser\Options\UserModuleOptionsTrait;
@@ -36,13 +39,27 @@ class UserController extends AbstractActionController
         // 这里只要直接使用就行
         // var_dump($this->getUserModuleOptions());
 
-        if ($this->getUserModuleOptions()->getDisabledLogin()) {
-            echo "Login disabled. Dependency Injection Successful.<br>";
-        } else {
-            echo "Login enabled. Dependency Injection Successful.<br>";
+        if ($this->getUserModuleOptions()->getDisabledRegister()) {
+            echo "Register disabled.Please contact administrator for new account registration.<br>";
         }
 
-        echo "User - Register index view. <hr>";
-        exit();
+        $form = new UserRegister();
+        //$form->get('submit')->setValue('Register');
+        $viewModel = [
+            'form'=>$form
+        ];
+
+        return $viewModel;
+    }
+
+    public function loginAction(){
+        if ($this->getUserModuleOptions()->getDisabledLogin()){
+            echo 'Login disabled. Please contact administrator for login.';
+        }
+        $form = new UserLogin();
+        $viewModel = [
+            'loginForm'=>$form
+        ];
+        return $viewModel;
     }
 }
