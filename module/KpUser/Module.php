@@ -8,7 +8,9 @@
 
 namespace KpUser;
 
+use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
@@ -18,7 +20,8 @@ class Module implements ConfigProviderInterface,
     AutoloaderProviderInterface,
     DependencyIndicatorInterface,
     ServiceProviderInterface,
-    ControllerProviderInterface
+    ControllerProviderInterface,
+    BootstrapListenerInterface
 {
     public function getConfig()
     {
@@ -69,9 +72,24 @@ class Module implements ConfigProviderInterface,
             // 的服务, 也就是'KpUser\Service\Initializer\UserModuleOptions.php', 可以通过debug看到
             // 在'KpUser\Service\Initializer\UserModuleOptions.php'内,可以根据传入的instance
             // 是否实现了UserModuleOptionsAwareInterface接口来实现 依赖注入 (自动注入)
-            'initializers'=>[
+            'initializers' => [
                 'KpUser\Service\Initializer\UserModuleOptions'
             ]
         ];
+    }
+
+    // Implement BootstrapListenerInterface
+    public function onBootstrap(EventInterface $e)
+    {
+        // 添加以下注释来获得代码提示
+        /**
+         * @var \Zend\Mvc\Application $application
+         */
+        $application = $e->getApplication();
+        $eventManager = $application->getEventManager();
+        $shareEventManager = $eventManager->getSharedManager();
+        $shareEventManager->attach('*','user.register.pre',function (){
+            echo 'TO DO for preparation of user registration.<br>';
+        });
     }
 }

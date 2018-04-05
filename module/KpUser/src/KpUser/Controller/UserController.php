@@ -45,12 +45,25 @@ class UserController extends AbstractActionController
         // 这里只要直接使用就行
         // var_dump($this->getUserModuleOptions());
 
+        // If user registration is disabled, then redirect
         if ($this->getUserModuleOptions()->getDisabledRegister()) {
             $this->redirect()->toRoute('user',['action'=>'disabledRegister']);
         }
 
+        // $form is needed for both _GET and _POST
         $form = new UserRegister();
         //$form->get('submit')->setValue('Register');
+
+        $request = $this->getRequest();
+        if ($request->isPost()){
+            $eventManager = $this->getEventManager();
+            $eventManager->trigger('user.register.pre');
+                // TO DO. registration
+            $eventManager->trigger('user.register.fail');
+            $eventManager->trigger('user.register.post');
+        }
+
+
         $viewModel = [
             'form'=>$form
         ];
