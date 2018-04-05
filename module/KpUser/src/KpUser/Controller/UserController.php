@@ -8,9 +8,11 @@
 
 namespace KpUser\Controller;
 
+use KpUser\Event\User;
 use KpUser\Form\UserBase;
 use KpUser\Form\UserLogin;
 use KpUser\Form\UserRegister;
+use KpUser\Listener\UserRegisterListener;
 use KpUser\Options\UserModuleOptions;
 use KpUser\Options\UserModuleOptionsAwareInterface;
 use KpUser\Options\UserModuleOptionsTrait;
@@ -57,10 +59,19 @@ class UserController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()){
             $eventManager = $this->getEventManager();
-            $eventManager->trigger('user.register.pre');
+
+            //使用单独的class来管理这些常量, 便于程序的维护
+            //$eventManager->trigger('user.register.pre');
+            //class保存在 KpUser\Event\User.php中
+
+            //$eventManager->trigger(User::USER_REGISTER_PRE);
+
+            // 使用实现了ListenerAggregateInterface的类来创建多个事件监听
+            $eventManager->trigger(User::USER_REGISTER_PRE);
+
                 // TO DO. registration
-            $eventManager->trigger('user.register.fail');
-            $eventManager->trigger('user.register.post');
+            $eventManager->trigger(User::USER_REGISTER_FAIL);
+            $eventManager->trigger(User::USER_REGISTER_POST);
         }
 
 

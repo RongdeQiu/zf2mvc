@@ -8,6 +8,8 @@
 
 namespace KpUser;
 
+use KpUser\Event\User;
+use KpUser\Listener\UserRegisterListener;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
@@ -87,9 +89,14 @@ class Module implements ConfigProviderInterface,
          */
         $application = $e->getApplication();
         $eventManager = $application->getEventManager();
+
+        /*
         $shareEventManager = $eventManager->getSharedManager();
-        $shareEventManager->attach('*','user.register.pre',function (){
+        $shareEventManager->attach('*',User::USER_REGISTER_PRE,function (){
             echo 'TO DO for preparation of user registration.<br>';
         });
+        */
+
+        $eventManager->attach(new UserRegisterListener());
     }
 }
