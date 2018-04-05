@@ -89,7 +89,6 @@ class Module implements ConfigProviderInterface,
          */
         $application = $e->getApplication();
         $eventManager = $application->getEventManager();
-
         /*
         $shareEventManager = $eventManager->getSharedManager();
         $shareEventManager->attach('*',User::USER_REGISTER_PRE,function (){
@@ -97,6 +96,7 @@ class Module implements ConfigProviderInterface,
         });
         */
 
+        //使用实现了ListenerAggregateInterface的类来添加多个事件监听
         $eventManager->attach(new UserRegisterListener());
     }
 }
