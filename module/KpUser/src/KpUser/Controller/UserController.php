@@ -22,6 +22,12 @@ class UserController extends AbstractActionController
     //使用Trait来简化代码
     use UserModuleOptionsTrait;
 
+    public function disabledRegisterAction(){
+        if(!$this->getUserModuleOptions()->getDisabledRegister()){
+            $this->redirect()->toRoute('user',['action'=>'register']);
+        }
+    }
+
     public function registerAction()
     {
         // var_dump($this->getServiceLocator()); -->ServiceManager
@@ -40,7 +46,7 @@ class UserController extends AbstractActionController
         // var_dump($this->getUserModuleOptions());
 
         if ($this->getUserModuleOptions()->getDisabledRegister()) {
-            echo "Register disabled.Please contact administrator for new account registration.<br>";
+            $this->redirect()->toRoute('user',['action'=>'disabledRegister']);
         }
 
         $form = new UserRegister();

@@ -61,7 +61,7 @@ return array(
     // 使用UserModuleOption功能,可以在controller里面判断是否禁止了注册和登录
     // Zend\Stdlib\AbstractOptions
     'kp_user'=>[
-        'disabled_register'=>false,
+        'disabled_register'=>true,
         'disabled_login'=>false
     ],
 
