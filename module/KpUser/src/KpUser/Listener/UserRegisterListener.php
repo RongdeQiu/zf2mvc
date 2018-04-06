@@ -9,7 +9,7 @@
 namespace KpUser\Listener;
 
 
-use KpUser\Event\User;
+use KpUser\Event\UserEvent;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -23,11 +23,11 @@ class UserRegisterListener implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->getSharedManager()->attach('*',
-            User::USER_REGISTER_PRE, [$this, 'checkUsername']);
+            UserEvent::USER_REGISTER_PRE, [$this, 'checkUsername']);
         $this->listeners[] = $events->getSharedManager()->attach('*',
-            User::USER_REGISTER_PRE, [$this, 'regData']);
+            UserEvent::USER_REGISTER_PRE, [$this, 'regData']);
         $this->listeners = $events->getSharedManager()->attach('*',
-            User::USER_REGISTER_PRE, [$this, 'regIp']);
+            UserEvent::USER_REGISTER_PRE, [$this, 'regIp']);
     }
 
     public function checkUsername(EventInterface $event)

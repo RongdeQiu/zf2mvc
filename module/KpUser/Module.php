@@ -8,7 +8,7 @@
 
 namespace KpUser;
 
-use KpUser\Event\User;
+use KpUser\Event\UserEvent;
 use KpUser\Listener\UserRegisterListener;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;

@@ -8,13 +8,19 @@
 
 namespace KpUser\Form;
 
+use KpUser\Entity\UserEntity;
 use Zend\Form\Form;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 class UserBase extends Form
 {
     public function __construct($name = null, array $options = array())
     {
         parent::__construct($name, $options);
+
+        // 设置hydrator使用ClassMethods方法来实现,
+        // 同时设置数据原型为Entity\UserEntity类
+        $this->setHydrator(new ClassMethods())->setObject(new UserEntity());
 
         $this->add([
             'type' => 'text',

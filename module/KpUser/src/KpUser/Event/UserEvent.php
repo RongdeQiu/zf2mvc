@@ -9,7 +9,7 @@
 namespace KpUser\Event;
 
 
-class User
+class UserEvent
 {
     const USER_REGISTER_PRE = 'user.register.pre';
     const USER_REGISTER_FAIL = 'user.register.fail';
