@@ -32,6 +32,10 @@ class UserRegisterListener implements ListenerAggregateInterface
 
     public function checkUsername(EventInterface $event)
     {
+        //var_dump($event->getServiceLocator());
+        var_dump($event->getUserEntity());
+        //var_dump($event->getForm());
+        var_dump($event->getUserModuleOptions());
         echo __FUNCTION__ . '<br>';
     }
 

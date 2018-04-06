@@ -66,8 +66,13 @@ class UserController extends AbstractActionController
             if ($form->isValid()){
 
                 $userEntity = $form->getData();
+                $userEvent = new UserEvent();
 
-                var_dump($userEntity);
+                //支持链式赋值
+                $userEvent->setUserModuleOptions($this->getUserModuleOptions())
+                    ->setUserEntity($userEntity)
+                    ->setForm($form)
+                    ->setServiceLocator($this->serviceLocator);
 
                 $eventManager = $this->getEventManager();
 
@@ -78,7 +83,7 @@ class UserController extends AbstractActionController
                 //$eventManager->trigger(User::USER_REGISTER_PRE);
 
                 // 使用实现了ListenerAggregateInterface的类来创建多个事件监听
-                $eventManager->trigger(UserEvent::USER_REGISTER_PRE,$this,['form'=>$form]);
+                $eventManager->trigger(UserEvent::USER_REGISTER_PRE,$userEvent);
 
                 // TO DO. registration
                 $eventManager->trigger(UserEvent::USER_REGISTER_FAIL);
