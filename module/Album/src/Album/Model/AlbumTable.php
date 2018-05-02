@@ -8,6 +8,7 @@
 
 namespace Album\Model;
 
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
 class AlbumTable
@@ -26,6 +27,14 @@ class AlbumTable
     public function fetchAll()
     {
         return $this->tableGateway->select();
+    }
+
+    public function search($query){
+        return $this->tableGateway->select(function (Select $select) use($query){
+            foreach ($query as $key=>$value){
+                $select->$key($value);
+            };
+        });
     }
 
     public function getAlbum($id)

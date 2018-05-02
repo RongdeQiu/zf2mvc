@@ -10,6 +10,7 @@ namespace Album\Controller;
 
 use Album\Form\AlbumForm;
 use Album\Model\Album;
+use Zend\Db\Sql\Select;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Album\Model\AlbumTable;
@@ -28,6 +29,23 @@ class AlbumController extends AbstractActionController
                 'albumSet' => $albumSet
             )
         );
+        return $viewModel;
+    }
+
+    public function searchAction()
+    {
+        $albumTable = $this->getServiceLocator()->get('Album\Model\AlbumTable');
+        $query = [
+            'columns' => ['id', 'artist', 'title'],
+            'where' => ['id <4 or id>6'],
+            'order' => 'id DESC',
+            'limit'=>10
+        ];
+        $resultSet = $albumTable->search($query);
+        $viewModel = new ViewModel();
+        $viewModel->setVariables([
+            'albumSet' => $resultSet
+        ]);
         return $viewModel;
     }
 
@@ -138,11 +156,11 @@ class AlbumController extends AbstractActionController
         $albumTable = $this->getServiceLocator()->get('Album\Model\AlbumTable');
         $album = $albumTable->getAlbum($id);
 
-        if (!$album){
+        if (!$album) {
             //Album数据没有找到， 直接返回主页面
             $this->redirect()->toRoute('album');
-        }else{
-            if(!$albumTable->deleteAlbum($id)){
+        } else {
+            if (!$albumTable->deleteAlbum($id)) {
                 //todo
                 // error web page
                 echo "Deletion of album failed. Please try again later.";
